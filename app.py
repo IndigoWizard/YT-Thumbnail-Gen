@@ -19,3 +19,17 @@ overlay = Image.new('RGBA', img.size, overlay_color + (128,))
 img_width, img_height = img.size
 thumbnail.paste(img, ((size_max[0]-img_width)//2, (size_max[1]-img_height)//2))
 thumbnail.paste(overlay, ((size_max[0]-img_width)//2, (size_max[1]-img_height)//2), mask=overlay)
+
+# Configuring text
+text = "My Awesome App"
+font = ImageFont.truetype('roboto.ttf', 50)  # using local font + font size
+text_color = '#fff'  
+draw = ImageDraw.Draw(thumbnail)
+
+# Add text to the thumbnail
+text_bbox = draw.textbbox(((size_max[0]-img_width)//2, (size_max[1]-img_height)//2), text, font=font)
+
+# Center the text horizontally and vertically in the thumbnail
+text_x = (size_max[0] - text_bbox[2]) / 2
+text_y = (size_max[1] - text_bbox[3]) / 2
+draw.text((text_x, text_y), text, font=font, fill=text_color)
