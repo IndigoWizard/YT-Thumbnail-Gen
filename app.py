@@ -11,7 +11,7 @@ img.thumbnail(size_max)
 bkg_color = ImageColor.getrgb('#000000')
 thumbnail = Image.new('RGB', size_max, bkg_color)
 
-# Creating a semi-transparent overlay
+# Creating a semi-transparent overlay using alpha
 overlay_color = ImageColor.getrgb('#000000')
 overlay = Image.new('RGBA', img.size, overlay_color + (128,))
 
@@ -22,7 +22,7 @@ thumbnail.paste(overlay, ((size_max[0]-img_width)//2, (size_max[1]-img_height)//
 
 # Configuring text
 text = "My Awesome App"
-font = ImageFont.truetype('roboto.ttf', 50)  # using local font + font size
+font = ImageFont.truetype('arial.ttf', 50)  # using local font + font size
 text_color = '#fff'  
 draw = ImageDraw.Draw(thumbnail)
 
@@ -33,3 +33,6 @@ text_bbox = draw.textbbox(((size_max[0]-img_width)//2, (size_max[1]-img_height)/
 text_x = (size_max[0] - text_bbox[2]) / 2
 text_y = (size_max[1] - text_bbox[3]) / 2
 draw.text((text_x, text_y), text, font=font, fill=text_color)
+
+# Save the thumbnail image
+thumbnail.save('result.jpg')
